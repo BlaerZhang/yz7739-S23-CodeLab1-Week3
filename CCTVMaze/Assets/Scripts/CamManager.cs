@@ -9,11 +9,12 @@ public class CamManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        camList[0].SetActive(true);
-        camList[1].SetActive(false);
-        camList[2].SetActive(false);
-        camList[3].SetActive(false);
-        camList[4].SetActive(false); //set only Cam1 activated
+        currentCam = 0;
+        camList[0].SetActive(true); //set only Cam1 activated
+        for (int i = 1; i <= camList.Count; i++) //deactivate the rest
+        {
+            camList[i].SetActive(false);
+        }
     }
 
     // Update is called once per frame

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -6,16 +7,30 @@ using UnityEngine;
 public class WASDController : MonoBehaviour
 {
     public float moveForceAmount = 0; //set move force amount in inspector
-    // public float rotateForceAmount = 0;
+    public static WASDController Instance; //create class instance
     private Rigidbody rB;
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        if (Instance == null) //if there is no Instance
+        {
+            DontDestroyOnLoad(gameObject); //keep player not destroyed
+            Instance = this; //set player as Instance
+        }
+        else
+        {
+            Destroy(gameObject); //if there is already a player, destroy this player
+        }
+    }
+
     void Start()
     {
         rB = GetComponent<Rigidbody>(); //get player rigidbody
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.W)) //press W to move forward
         {
